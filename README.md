@@ -1,74 +1,70 @@
-# EX-09:Implementation-of-Erosion-and-Dilation
+# Implementation-of-Erosion-and-Dilation
 ## Aim
 To implement Erosion and Dilation using Python and OpenCV.
 ## Software Required
 1. Anaconda - Python 3.7
 2. OpenCV
 ## Algorithm:
-### Step-1:Initialize an Empty Image:
+### Step1:
+<br>  Import the necessary packages
 
-Create a black image of size 100x400 pixels.
-### Step-2:Add Text to the Image:
 
-Use a specified font to write the word "Lifestyle" on the image at a defined position.
-### Step-3:Display the Original Image:
+### Step2:
+<br> Create the Text using cv2.putText
 
-Show the image containing the text without axis labels.
-### Step-4:Create Structuring Elements:
+### Step3:
+<br> Create the structuring element
 
-Define a structuring element for morphological operations (e.g., a cross-shaped kernel).
-### Step-5:Erode the Image:
 
-Apply erosion to the image using the defined structuring element to reduce the size of white regions.
-### Step-6:Dilate the Image:
+### Step4:
+<br> Erode the image
 
-Apply dilation to the original image using the same structuring element to increase the size of white regions.
+### Step5:
+<br>  Dilate the image
 
  
 ## Program:
-```
-Developed By: ARHAM S
-Reference Number :212222110005
-``` 
-# Import the necessary packages
-```
-import numpy as np
+
+ ```
 import cv2
-import matplotlib.pyplot as plt
-```
+import numpy as np
+from matplotlib import pyplot as plt
+imput_image='pic.png'
+color_image=cv2.imread(imput_image)
+gray_image=cv2.cvtColor(color_image,cv2.COLOR_BGR2GRAY)
+edges=cv2.Canny(gray_image,100,200)
+kernel_size=5
+kernel=np.ones((kernel_size,kernel_size),np.uint8)
+erosion=cv2.erode(edges,kernel,iterations=1)
+dilation=cv2.dilate(edges,kernel,iterations=1)
+plt.figure(figsize=(15,10))
+plt.subplot(2,3,1)
+plt.imshow(cv2.cvtColor(color_image,cv2.COLOR_BGR2RGB))
+plt.title('Original Color Image')
+plt.axis('on')
+plt.subplot(2,3,2)
+plt.imshow(gray_image,cmap='gray')
+plt.title('black and white image')
+plt.axis('on')
+plt.subplot(2,3,3)
+plt.imshow(edges,cmap='gray')
+plt.title('edge segmentation')
+plt.axis('on')
+plt.subplot(2,3,4)
+plt.imshow(edges,cmap='gray')
+plt.title('erosion')
+plt.axis('on')
+plt.subplot(2,3,5)
+plt.imshow(edges,cmap='gray')
+plt.title('dilation')
+plt.axis('on')
 
-# Create the Text using cv2.putText
 ```
-img = np.zeros((100,400),dtype = 'uint8')
-font = cv2.FONT_HERSHEY_SIMPLEX
-cv2.putText(img ,'Lifestyle',(60,70),font,2,(255),5,cv2.LINE_AA)
-plt.imshow(img)
-plt.axis('off')
-```
-![alt text](image.png)
-# Create the structuring element
-```
-kernel = np.ones((5,5),np.uint8)
-kernel1 = cv2.getStructuringElement(cv2.MORPH_CROSS,(5,5))
-cv2.erode(img,kernel)
-```
-![alt text](image-1.png)
-# Erode the image
-```
-img_erode = cv2.erode(img,kernel1)
-plt.imshow(img_erode)
-plt.axis('off')
-```
-![alt text](image-2.png)
+## Output:
+![kamal dipt](https://github.com/Kamaleshvelmurugan/erosion--dilation/assets/119477328/7d986917-0c76-45d6-a075-b892509860d5)
 
-# Dilate the image
 
-```
-img_dilate = cv2.dilate(img,kernel1)
-plt.imshow(img_dilate)
-plt.axis('off')
-```
-![alt text](image-3.png)
+
 
 ## Result
 Thus the generated text image is eroded and dilated using python and OpenCV.
